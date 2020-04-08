@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>到时候的主页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+ 
+        table {
+            border-collapse:collapse;
+            width:400px;
+            margin:20px auto;
+        }
+        td,th{
+            border:1px solid gray;
+        }
+         
+    </style>       
+</head>
+<body>
+ 
+<div class="workingArea">
+    <table>
+        <thead>
+            <tr>
+                <th>目录</th>
+               
+            </tr>
+        </thead>
+       <tbody>
+								<tr th:each="file:${files}">
+									<td th:text="${file.fileName}"></td>
+									<td th:text="${file.ownHost}"></td>
+									<td th:text="${file.hostName}"></td>
+									
+									<td>
+										<button class="btn btn-sm btn-primary">编辑</button>
+										<button class="btn btn-sm btn-danger">删除</button>
+									</td>
+								</tr>
+							</tbody>
+       
+        
+    </table>
+</div>
+ 
+</body>
+ 
+</html>
