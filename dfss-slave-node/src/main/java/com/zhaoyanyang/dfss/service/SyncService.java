@@ -122,10 +122,15 @@ public class SyncService {
 		// 6. 客户端读取差异流
 		List<Delta> deltas2 = rdf.readDeltas(is);
 		// 7. 客户端根据差异流，生成最新的文件
-		OutputStream outputStream=new FileOutputStream(dstFileName);
+		OutputStream outputStream=new FileOutputStream(dstFileName+"tmp");
 		File file=new File(dstFileName);
 		rdf.rebuildFile(file, deltas2, outputStream);
 		outputStream.close();
+		file.delete();
+		
+		File afterfile=new File(dstFileName+"tmp");
+		afterfile.renameTo(new File(dstFileName));
+		
 
 		// // 已经同步完成 告诉主节点
 		// MultiValueMap<String, Object> paramToMaster = new LinkedMultiValueMap<>();

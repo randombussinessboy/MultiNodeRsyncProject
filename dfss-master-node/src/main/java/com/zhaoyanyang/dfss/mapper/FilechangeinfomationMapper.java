@@ -17,7 +17,7 @@ public interface FilechangeinfomationMapper {
 	@Insert(" insert into filechangeinfomation_ ( msg ) values (#{msg}) ") 
     public int add(Filechangeinfomation filechangeinfomation ); 
 	
-	@Select(" select * from filechangeinfomation_ WHERE id = (SELECT MAX(id) FROM filechangeinfomation_) ") 
+	@Select(" select * from filechangeinfomation_ WHERE id > (SELECT MAX(id) FROM filechangeinfomation_)-20 ") 
 	public List<Filechangeinfomation> selectLastTenMsg();
 	
 	

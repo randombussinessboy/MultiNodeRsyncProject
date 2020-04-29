@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.zhaoyanyang.dfss.factory.TaskFactory;
 import com.zhaoyanyang.dfss.pojo.Destination;
@@ -226,7 +227,7 @@ public class FrontAdapter {
 
 		DfssFile dfssFile = new DfssFile();
 
-		if (reducedDfssFile.getFileUrl().equals("") || reducedDfssFile.getFileUrl().equals("null")) {
+		if (StringUtils.isEmpty(reducedDfssFile.getFileUrl())) {
 			dfssFile.setFileName("\\");
 		} else {
 			dfssFile.setFileName(reducedDfssFile.getFileUrl());
@@ -276,8 +277,9 @@ public class FrontAdapter {
 					
 
 				}
+				
 
-			} else {
+			} else {//是文件同步的话,不止要不原URL分离出来 还需要把目的的分离出来
 				
 				if (taskInfo.isTimmingTask()) {
 					
@@ -285,7 +287,13 @@ public class FrontAdapter {
 					for (TaskTarget taskTarget : taskInfo.getTargetList()) {
 
 						Destination destination = new Destination();
-						destination.setDirectoryName(taskTarget.getTargetFile());
+						
+						String directoryAndFileName=taskTarget.getTargetFile();
+						String fileName=directoryAndFileName.split("\\\\")[directoryAndFileName.split("\\\\").length-1];
+						String directoryName=directoryAndFileName.replace("\\"+fileName, "");
+						
+						destination.setDirectoryName(directoryName);
+						destination.setFileName(fileName);
 						destination.setUrl(taskTarget.getTargetUrl());
 						destinations.add(destination);
 
@@ -295,10 +303,14 @@ public class FrontAdapter {
 					String directoryAndFileName=taskInfo.getFileUrl();
 					String fileName=directoryAndFileName.split("\\\\")[directoryAndFileName.split("\\\\").length-1];
 					String directoryName=directoryAndFileName.replace("\\"+fileName, "");
+					System.out.println(fileName);
+					System.out.println(directoryName);
 				
 					Task tmp = taskFactory.createOne2MoreTimmingTimeTaskultimate(directoryName, fileName,
 							taskInfo.getSourceUrl(), destinations, taskInfo.getMinutes());
+					taskDeliverService.deliverTaskToSlaveNode(tmp);
 					taskQueueService.addTaskToQueue(tmp);
+					
 					tmp.setRunning(true);
 					
 					
@@ -309,7 +321,13 @@ public class FrontAdapter {
 					for (TaskTarget taskTarget : taskInfo.getTargetList()) {
 
 						Destination destination = new Destination();
-						destination.setDirectoryName(taskTarget.getTargetFile());
+						String directoryAndFileName=taskTarget.getTargetFile();
+						String fileName=directoryAndFileName.split("\\\\")[directoryAndFileName.split("\\\\").length-1];
+						String directoryName=directoryAndFileName.replace("\\"+fileName, "");
+						
+						destination.setDirectoryName(directoryName);
+						destination.setFileName(fileName);
+					
 						destination.setUrl(taskTarget.getTargetUrl());
 						destinations.add(destination);
 
@@ -319,6 +337,9 @@ public class FrontAdapter {
 					String directoryAndFileName=taskInfo.getFileUrl();
 					String fileName=directoryAndFileName.split("\\\\")[directoryAndFileName.split("\\\\").length-1];
 					String directoryName=directoryAndFileName.replace("\\"+fileName, "");
+					System.out.println(fileName);
+					System.out.println(directoryName);
+				
 				
 					Task tmp = taskFactory.createOne2MoreRealTimeTask
 							(directoryName, fileName, taskInfo.getSourceUrl(), destinations);

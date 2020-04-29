@@ -33,6 +33,8 @@ function addTask() {
             dataType:"json",
             success: function (data) {
                 if(data.result=="success"){
+                	$(".nav").empty();
+                	$(".tab-content").empty();
                     alert("添加任务成功")
                 }
             }

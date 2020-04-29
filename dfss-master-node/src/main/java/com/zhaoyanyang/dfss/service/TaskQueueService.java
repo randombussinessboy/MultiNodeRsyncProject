@@ -53,6 +53,7 @@ public class TaskQueueService {
 		if (readyDelete==null) {
 			throw new Exception("该任务Id对应的任务找不到");
 		}
+		readyDelete.setRunning(false);
 		historyTaskQueue.add(readyDelete);
 		taskQueue.remove(readyDelete);
 

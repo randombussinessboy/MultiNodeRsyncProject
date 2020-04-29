@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import com.zhaoyanyang.dfss.service.TaskDeliverService;
 import com.zhaoyanyang.dfss.service.TaskQueueService;
 import com.zhaoyanyang.dfss.service.TaskStateQueryService;
 
+@CrossOrigin
 @RestController
 public class MasterNodeApartController {
 

@@ -4,5 +4,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 spring:
   application:
-    name: third-part-index-data-project
-  user-setting: static/pages/user.json  
+    name: dfss-view-node
