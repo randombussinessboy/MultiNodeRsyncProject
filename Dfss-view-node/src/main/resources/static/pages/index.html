@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>平台</title>
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+
+        .nav > li > a {
+            padding: 5px 10px;
+        }
+
+        .tab-content {
+            padding-top: 3px;
+        }
+    </style>
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/sidebar-menu/sidebar-menu.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-tab.js"></script>
+    <script src="/sidebar-menu/sidebar-menu.js"></script>
+
+
+</head>
+<body>
+<div class="navbar navbar-default" id="navbar">
+    <div class="navbar-container" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand">
+                <small>
+                    <i class="icon-leaf"></i>
+                   多节点文件同步系统
+                </small>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar">
+            <ul class="nav nav-list" id="menu"></ul>
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left:5px;">
+                        <ul class="nav nav-tabs" role="tablist">
+
+                        </ul>
+                        <div class="tab-content" style="height:865px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#menu').sidebarMenu({
+            data: [{
+                id: '1',
+                text: '系统概况',
+                open:true,
+                icon: 'icon-list',
+                url: '/pages/sys.html'
+
+            },{
+                id: '2',
+                text: '添加任务',
+                icon: 'icon-apple',
+                url: '/pages/addTabs.html'
+
+            },{
+                id: '3',
+                text: '任务详情',
+                icon: 'icon-cog',
+                url: '/pages/detail.html'
+
+            }, {
+                id: '4',
+                text: '历史任务',
+                icon: 'icon-glass',
+                url: '/pages/his.html'
+
+            },{
+                id: '5',
+                text: '用户管理',
+                icon: 'icon-user',
+                url: '/pages/user.html'
+            }]
+        });
+    });
+
+</script>
+<script src="/ace/ace.min.js"></script>
+<script src="/ace/ace-extra.min.js"></script>
+</body>
+</html>

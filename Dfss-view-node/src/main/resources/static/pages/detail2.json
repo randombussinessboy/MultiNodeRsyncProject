@@ -1,0 +1,18 @@
+{
+  "fileUrl": "E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode1",
+  "sourceUrl": "http://localhost:8011",
+  "minutes": 3,
+  "taskId": "任务1",
+  "targetList": [
+    {
+      "targetUrl": "http://localhost:8012",
+      "targetFile": "E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode2"
+    },
+    {
+      "targetUrl": "http://localhost:8013",
+      "targetFile": "E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode3"
+    }
+  ],
+  "directonry": true,
+  "timmingTask": true
+}

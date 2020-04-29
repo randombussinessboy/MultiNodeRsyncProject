@@ -1,0 +1,24 @@
+{
+  "rows": [
+    {
+      "taskId": "任务1",
+      "taskType": "一对多任务",
+      "taskState": "正在运行",
+      "source": "http://localhost:8011\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode1\\null",
+      "destinations": [
+        "http://localhost:8012\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode2\\null",
+        "http://localhost:8013\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode3\\null"
+      ]
+    },
+    {
+      "taskId": "任务2",
+      "taskType": "一对多任务",
+      "taskState": "暂停中",
+      "source": "http://localhost:8011\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode1\\null",
+      "destinations": [
+        "http://localhost:8012\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode2\\null",
+        "http://localhost:8013\\E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode3\\null"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/ztree/css/metroStyle/metroStyle.css" type="text/css">
+    <style>
+        .scroll-box {
+            height:200px;
+            overflow:hidden;
+            border:1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="/ztree/js/jquery.ztree.all.js"></script>
+    <script src="/js/serverurl.js"></script>
+    <script src="/pages/his.js"></script>
+</head>
+<body>
+<div class="container">
+    <table id="tableOne"></table>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" >
+        <div class="modal-dialog" style="width:800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">标题</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="userForm">
+                        <input type="hidden"  id="taskId">
+                        <div class="form-group">
+                            <label for="mSourceUrl" class="col-sm-4 control-label">源服务器：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="mSourceUrl" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mSourceFile" class="col-sm-4 control-label">源文件：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="mSourceFile" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mDir" class="col-sm-4 control-label">是否是目录：</label>
+                            <div class="col-sm-8">
+                                <select id="mDir" class="form-control" disabled="disabled">
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mDs" class="col-sm-4 control-label">任务类型：</label>
+                            <div class="col-sm-8">
+                                <select id="mDs" class="form-control" disabled="disabled">
+                                    <option value="1">定时任务</option>
+                                    <option value="0">非定时任务</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="mDsDiv">
+                            <label for="mTime" class="col-sm-4 control-label">定时时间：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="mTime"  disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="mTarget" class="col-sm-4 control-label">目的节点：</label>
+                            <div class="col-sm-8">
+                                <div class="scroll-box" id="mTarget" style="padding: 10px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="mMsg" class="col-sm-4 control-label">消息：</label>
+                            <div class="col-sm-8">
+                                <textarea disabled="disabled" rows="6" class="form-control" id="mMsg" ></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

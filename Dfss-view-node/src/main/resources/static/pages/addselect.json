@@ -1,0 +1,16 @@
+{
+  "rows": [
+    {
+      "serviceName": "dfss-slave-3",
+      "url": "http://192.168.0.100:8013"
+    },
+    {
+      "serviceName": "dfss-slave-1",
+      "url": "http://192.168.0.100:8011"
+    },
+    {
+      "serviceName": "dfss-slave-2",
+      "url": "http://192.168.0.100:8012"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.css">
+    <style>
+        .container::-webkit-scrollbar {
+
+            display:none
+
+        }
+    </style>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-tab.js"></script>
+    <script src="/js/serverurl.js"></script>
+    <script src="/pages/addTabs.js"></script>
+</head>
+<body>
+<div class="container" style=" overflow: hidden;">
+    <div class="rows" style="margin-bottom: 10px;margin-top: 10px">
+        <button  type="button" class="btn btn-primary" onclick="addTab()">创建任务</button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button  type="button" class="btn btn-success" onclick="addTask()">提交任务</button>
+
+    </div>
+    <ul class="nav nav-tabs" role="tablist">
+
+    </ul>
+    <div class="tab-content" style="height: 700px;margin-top: 10px;overflow: hidden;">
+
+    </div>
+
+</div>
+</body>
+</html>

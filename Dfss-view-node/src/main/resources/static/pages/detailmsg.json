@@ -1,0 +1,11 @@
+{
+  "rows": [
+    "目录同步任务任务1已经在主机:http://localhost:8013E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode3\\新建文本文档.txt创建文件",
+    "目录同步任务任务1已经在主机:http://localhost:8012E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode2\\新建文本文档.txt创建文件",
+    "2020-04-28 at 20:56:24:目录同步任务任务1已经将主机:http://localhost:8012E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode2\\w1d1.txt删除",
+    "2020-04-28 at 20:56:25:目录同步任务任务1已经将主机:http://localhost:8013E:\\毕业设计项目代码\\SlaveNodeDemo\\slaveNode3\\w1d1.txt删除",
+    "2020-04-28 at 20:56:25:目录同步任务1已经将目录下的所有同步请求发送到主机http://localhost:8012",
+    "2020-04-28 at 20:56:25:目录同步任务1已经将目录下的所有同步请求发送到主机http://localhost:8013"
+  ]
+}
+

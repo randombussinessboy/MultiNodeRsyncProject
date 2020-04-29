@@ -1,0 +1,38 @@
+[
+  {
+    "name": "activemqdemo",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\activemqdemo",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": true
+  },
+  {
+    "name": "apache-activemq-5.15.8",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\apache-activemq-5.15.8",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": true
+  },
+  {
+    "name": "apache-activemq-5.15.8-bin.zip",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\apache-activemq-5.15.8-bin.zip",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": false
+  },
+  {
+    "name": "rabbitmq",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\rabbitmq",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": true
+  },
+  {
+    "name": "redis",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\redis",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": true
+  },
+  {
+    "name": "zipkin-server-2.10.1-exec.jar",
+    "fileUrl": "E:\\毕业设计项目代码\\配置服务器和消息中间件\\zipkin-server-2.10.1-exec.jar",
+    "sourceUrl": "http://26.26.26.1:8013",
+    "isParent": false
+  }
+]

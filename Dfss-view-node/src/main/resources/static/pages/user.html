@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-table.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/pages/user.js"></script>
+
+</head>
+<body>
+<div class="container">
+
+    <div id="userDiv">
+        <div id="toolOne">
+            <button type="button" id="add" class="btn btn-default " onclick="showModal(2)">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+            </button>
+        </div>
+        <table id="tableOne"></table>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span >&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalTitle"></h4>
+                </div>
+                <div class="modal-body"id="modalContent">
+                    <form class="form-horizontal center-block" id="form">
+                        <div class="form-group">
+                            <label  for="inputName"
+                                   class="col-sm-2 control-label">账号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputName"
+                                       placeholder="请输入账号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  for="inputPass"
+                                   class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputPass"
+                                       placeholder="请输入密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取&nbsp;&nbsp;消</button>
+                    <button type="button" id="btn_save" class="btn btn-primary" onclick="btnClick()">登录</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/ztree/css/metroStyle/metroStyle.css" type="text/css">
+    <style>
+        .container::-webkit-scrollbar {
+
+            display:none
+
+        }
+    </style>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table.min.js"></script>
+    <script src="/bootstrap-3.3.7/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="/ztree/js/jquery.ztree.all.js"></script>
+    <script src="/js/serverurl.js"></script>
+    <script src="/pages/add.js"></script>
+</head>
+<body>
+<div class="container" style="overflow: hidden;">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form class="form-horizontal" style="width: 600px">
+                <div class="form-group">
+                    <label for="taskSel" class="col-sm-3 control-label">源服务器</label>
+                    <div class="col-sm-7">
+                        <select id="taskSel" class="form-control" onchange="taskSelChange()">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="treeDemo" class="col-sm-3 control-label">文件夹</label>
+                    <div class="col-sm-7">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="taskSel2" class="col-sm-3 control-label">是否目录</label>
+                    <div class="col-sm-7">
+                        <select id="taskSel2" class="form-control" disabled="disabled" >
+                            <option value="">待选择文件</option>
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="taskSel3" class="col-sm-3 control-label">任务类型</label>
+                    <div class="col-sm-7">
+                        <select id="taskSel3" class="form-control"  onchange="taskSelChange2()" >
+                            <option value="1">定时任务</option>
+                            <option value="0">非定时任务</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="timeFormDiv">
+                    <label for="taskTime" class="col-sm-3 control-label">定时时间</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="taskTime" placeholder="单位：分">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-7">
+                        <button  type="button" class="btn btn-primary" onclick="addTarget()">添加目的节点</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+    <div id="targetDiv"></div>
+<!--    <div style="padding: 15px">-->
+<!--        <form class="form-horizontal" style="width: 600px">-->
+<!--            <div class="col-sm-3">-->
+<!--            </div>-->
+<!--            <div class="col-sm-7">-->
+<!--                <button  type="button" class="btn btn-primary" onclick="addTask()">添加任务</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+</div>
+</body>
+</html>
