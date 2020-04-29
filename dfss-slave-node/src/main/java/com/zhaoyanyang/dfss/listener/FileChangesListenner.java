@@ -1,5 +1,7 @@
 package com.zhaoyanyang.dfss.listener;
 
+import java.io.File;
+
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -47,6 +49,11 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 *            被修改文件名
 	 */
 	public void fileModified(int wd, String rootPath, String name) {
+		
+		File file=new File(rootPath+File.separator+name);
+		if (file.isDirectory()) {
+			return;
+		}
 
 		print("modified " + rootPath + ":" + name);
 	}
@@ -77,7 +84,7 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 */
 	public void fileDeleted(int wd, String rootPath, String name) {
 
-		print("deleted " + rootPath + ":" + name);
+		print("deleted " + rootPath + File.separator + name);
 	}
 
 	/**
@@ -91,8 +98,15 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 *            被创建文件名
 	 */
 	public void fileCreated(int wd, String rootPath, String name) {
+		
 
-		print("created " + rootPath + ":" + name);
+		File file=new File(rootPath+File.separator+name);
+		if (file.isDirectory()) {
+			print("created " + rootPath + File.separator + name+" 1");
+			return;
+		}
+		print("created " + rootPath + File.separator + name+" 0");
+		
 	}
 
 	/**

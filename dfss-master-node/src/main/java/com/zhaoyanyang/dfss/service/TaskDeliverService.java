@@ -24,12 +24,9 @@ public class TaskDeliverService {
 		
 		String ownHost=task.getOwnHost();
 	
-        String url = String.format("http://%s/deliveryTask",ownHost);
+        String url = String.format("%s/deliveryTask",ownHost);
         System.out.println(url);
         
-        MultiValueMap<String, Task> paramMap = new LinkedMultiValueMap<String, Task>();
-        paramMap.add("task", task);
-		
 		String wathchId=restTemplate.postForObject(url, task,String.class);
 		System.out.println(wathchId);
 		task.setWatchId(wathchId);

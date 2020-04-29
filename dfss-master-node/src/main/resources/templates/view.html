@@ -1,48 +1,166 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>到时候的主页面</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style>
- 
-        table {
-            border-collapse:collapse;
-            width:400px;
-            margin:20px auto;
-        }
-        td,th{
-            border:1px solid gray;
-        }
-         
-    </style>       
-</head>
-<body>
- 
-<div class="workingArea">
-    <table>
-        <thead>
-            <tr>
-                <th>目录</th>
-               
-            </tr>
-        </thead>
-       <tbody>
-								<tr th:each="file:${files}">
-									<td th:text="${file.fileName}"></td>
-									<td th:text="${file.ownHost}"></td>
-									<td th:text="${file.hostName}"></td>
-									
-									<td>
-										<button class="btn btn-sm btn-primary">编辑</button>
-										<button class="btn btn-sm btn-danger">删除</button>
-									</td>
-								</tr>
-							</tbody>
-       
+<!DOCTYPE html>
+<meta charset="UTF-8">
+、
+<title>DFSS 管理</title>
+<script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+
+<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-datepicker/1.8.0/bootstrap-datepicker.min.css"
+	rel="stylesheet">
+
+<script src="js/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<script src="js/vue/2.5.16/vue.min.js"></script>
+<script src="js/chartjs/2.8.0/chart.min.js"></script>
+<script src="js/axios/0.17.1/axios.min.js"></script>
+<script src="js/bootstrap-datepicker/1.8.0/bootstrap-datepicker.min.js"></script>
+<script
+	src="js/bootstrap-datepicker/1.8.0/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<link
+	href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css"
+	rel="stylesheet">
+
+<script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+
+<script>
+
+$(function(){
+    var data4Vue = {
         
-    </table>
-</div>
- 
-</body>
- 
-</html>
+        services:[],
+
+    };
+
+    //ViewModel
+    var vue = new Vue({
+        el: '#workingArea',
+        data: data4Vue,
+        mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+            this.init();
+            $("[data-toggle='tooltip']").tooltip();
+        },
+        methods: {
+            init:function(){
+                var url =  "http://127.0.0.1:8001/getEurekaServices";
+                axios.get(url).then(function(response) {
+                    vue.services = response.data;
+                    
+                });
+            }
+           
+});
+</script>
+
+
+<body>
+	<style>
+p {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+div#workingArea {
+	margin-left: 30px;
+	margin-top: 3px;
+}
+
+div#content {
+	margin: 15px;
+}
+
+div#systemoverview{
+	width: 500px;
+}
+</style>
+
+
+
+
+	<div id="workingArea">
+
+		<div>
+			<img src="/img/dfss_logo.png" height="77">
+		</div>
+
+		<div id="cotent">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active"><a href="#systemoverview" data-toggle="tab">
+						系统概况 </a></li>
+
+				<li><a href="#addTask" data-toggle="tab"> 添加任务 </a></li>
+
+				<li><a href="#taskDetail" data-toggle="tab"> 任务详情 </a></li>
+
+				<li><a href="#history" data-toggle="tab"> 历史任务 </a></li>
+
+				<li><a href="#admin" data-toggle="tab"> 管理 </a></li>
+
+
+
+			</ul>
+			<div id="myTabContent" class="tab-content">
+
+
+				<div class="tab-pane fade in active" id="systemoverview">
+
+					<span class="label label-success">集群中正在运行的节点</span>
+
+
+					
+					<table class="table table-striped table-bordered table-condensed"
+					 >
+						<thead>
+							<th>服务名称</th>
+							<th>所在节点</th>
+						</thead>
+						<tbody>
+							<tr v-for="service in services">
+								<td>{{service.serviceName}}</td>
+								<td>{{service.url}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+
+
+
+					<br /> <span class="label label-primary">集群中正在运行的任务</span>
+
+					
+				    <br /> <span class="label label-warning">集群文件系统消息</span>
+
+
+				</div>
+
+
+				<div class="tab-pane fade" id="addTask">
+					<p>添加任务这一面,表单类似的,注意的一点是批量添加</p>
+				</div>
+
+				<div class="tab-pane fade" id="taskDetail">
+					<p>显示一个任务的详细信息,主要就是消息队列里面的那些消息显示图表</p>
+				</div>
+
+				<div class="tab-pane fade" id="history">
+					<p>有一个图表显示历史任务相关的</p>
+				</div>
+
+
+				<div class="tab-pane fade" id="admin">
+					<p>管理</p>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+	<div style="height: 200px"></div>

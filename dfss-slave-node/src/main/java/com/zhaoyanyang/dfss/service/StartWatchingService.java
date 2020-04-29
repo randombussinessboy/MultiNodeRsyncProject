@@ -19,22 +19,22 @@ public class StartWatchingService {
 	 * 将任务所拥有的文件加入监控
 	 * @param task 任务
 	 * @return 返回watchId
+	 * @throws JNotifyException 
 	 */
-	public int addMonitor(Task task) {
+	public int addMonitor(Task task) throws JNotifyException {
 		int mask = JNotify.FILE_CREATED // 文件创建
 				| JNotify.FILE_DELETED // 文件删除
 				| JNotify.FILE_MODIFIED // 文件修改
 				| JNotify.FILE_RENAMED; // 文件改名
-		boolean watchSubtree = true;
+		
 		int watchID;
-
-		try {
-			watchID = JNotify.addWatch(task.getDirectoryName(), mask, watchSubtree, new FileChangesListenner(task,rabbitmqhost));
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-			return 0;
+		
+		if (task.getTargetType()==Task.FILE_TASK) {
+			watchID= JNotify.addWatch(task.getDirectoryName(), mask, false, new FileChangesListenner(task,rabbitmqhost));
+		}else {
+			watchID = JNotify.addWatch(task.getDirectoryName(), mask, true, new FileChangesListenner(task,rabbitmqhost));
 		}
+
 		task.setWatchId(String.valueOf(watchID));
 		return watchID;
 

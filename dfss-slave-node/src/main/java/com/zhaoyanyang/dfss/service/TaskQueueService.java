@@ -63,6 +63,7 @@ public class TaskQueueService {
 	 */
 	public void removeTask(Task task) {
 		
+		task.setRunning(false);
 		historyTaskQueue.add(task);
 		taskQueue.remove(task);
 
@@ -123,5 +124,29 @@ public class TaskQueueService {
 	public ArrayList<Task> getTaskArray() {
 		return taskQueue;
 	}
+	
+	
+	/**
+	 * 返回历史任务队列 注意你不能直接在本数组上面修改，你只能调用已有方法进行修改
+	 * 
+	 * @return 队列的引用
+	 */
+	public ArrayList<Task> getHistoryTaskArray() {
+		return historyTaskQueue;
+	}
+	
+	
+	public Task findHistorryTask(String taskId) throws Exception {
+
+		for (Task task : historyTaskQueue) {
+			if (task.getTaskId().equals(taskId)) {
+				return task;
+			}
+		}
+		throw new Exception("没有找到对应的任务,请检查任务Id是否正确");
+	}
 
 }
+
+
+

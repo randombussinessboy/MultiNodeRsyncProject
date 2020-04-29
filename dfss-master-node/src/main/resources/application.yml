@@ -10,5 +10,7 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
+
+      
 rabbitmq:
   hostName:  localhost

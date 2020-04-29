@@ -10,8 +10,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.github.andrewoma.dexx.collection.HashMap;
-import com.github.andrewoma.dexx.collection.Map;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhaoyanyang.dfss.pojo.DfssFile;
 
@@ -31,7 +29,7 @@ public class ListFilesService {
 		String ownHost=dfssFile.getOwnHost();
 		String directory=dfssFile.getFileName();
 	
-        String url = String.format("http://%s/listFile",ownHost);
+        String url = String.format("%s/listFile",ownHost);
         System.out.println(url);
         
         MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<String, Object>();
@@ -39,6 +37,24 @@ public class ListFilesService {
 		
 		DfssFile[] tmp=restTemplate.postForObject(url, paramMap,DfssFile[].class);
 		return Arrays.asList(tmp);
+	}
+	
+	/**
+	 * 返回一个目录下面的所有子文件,级联跟踪。
+	 * @param dfssFile
+	 * @return
+	 */
+	
+	public List<DfssFile> allSubFiles(DfssFile dfssFile){
+		
+	   	 String ownHost=dfssFile.getOwnHost();
+		 String directory=dfssFile.getFileName();
+		 String url = String.format("%s/allSubFiles",ownHost);
+		 MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<String, Object>();
+		 paramMap.add("directory", directory);
+		 DfssFile[] tmp=restTemplate.postForObject(url, paramMap,DfssFile[].class);
+		 return Arrays.asList(tmp);
+		
 	}
 	
 	public List<DfssFile> slave_node_file_system_not_connected(DfssFile adfssFile) {

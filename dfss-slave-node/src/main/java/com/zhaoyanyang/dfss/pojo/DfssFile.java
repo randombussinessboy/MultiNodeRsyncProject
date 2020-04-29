@@ -21,6 +21,16 @@ public class DfssFile implements Serializable{
 	private String fileName;
 	private String ownHost;
 	private String hostName;
+	private String abosoluteAddr;
+	
+	public String getAbosoluteAddr() {
+		return abosoluteAddr;
+	}
+
+	public void setAbosoluteAddr(String abosoluteAddr) {
+		this.abosoluteAddr = abosoluteAddr;
+	}
+
 	/**
 	 * 
 	 * @return

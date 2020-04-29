@@ -46,5 +46,6 @@
   	<module>dfss-eureka-server</module>
   	<module>dfss-master-node</module>
   	<module>dfss-slave-node</module>
+  	<module>Dfss-view-node</module>
   </modules>
 </project>

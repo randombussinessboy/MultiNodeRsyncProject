@@ -6,7 +6,10 @@ spring:
   application:
     name: dfss-slave-1
 server:
-  port:  8011   
+  port:  8011
 
 rabbitmq:
-  hostName:  localhost         
+  hostName:  localhost
+
+master:
+  ipAddress: http://localhost:8001         
