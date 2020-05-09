@@ -1,6 +1,6 @@
 package com.zhaoyanyang.dfss.pojo;
 
-/*
+/**
  * 文件改变信息的Pojo类
  */
 public class Filechangeinfomation {

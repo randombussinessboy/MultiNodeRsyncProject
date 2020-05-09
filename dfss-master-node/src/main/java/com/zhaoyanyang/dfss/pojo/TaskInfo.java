@@ -2,6 +2,11 @@ package com.zhaoyanyang.dfss.pojo;
 
 import java.util.List;
 
+/**
+ * 这也是一个任务类 会跟Task转换
+ * @author yangzy
+ *
+ */
 public class TaskInfo {
 
 	    

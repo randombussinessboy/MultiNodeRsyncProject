@@ -3,7 +3,9 @@ package com.zhaoyanyang.dfss.pojo;
 /**
  * 为跟前端兼容而使用的类
  * @author yangzy
- *
+ *兼容DfssFile 重构时两个可以合并 因为写前端时
+ *收到前端控件的限制，又不想改后端原来的类
+ *所以需要用到适配器模式
  */
 public class ReducedDfssFile {
 

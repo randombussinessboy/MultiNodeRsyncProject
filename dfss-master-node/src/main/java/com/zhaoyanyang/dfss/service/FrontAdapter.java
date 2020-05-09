@@ -16,7 +16,12 @@ import com.zhaoyanyang.dfss.pojo.ReducedTask;
 import com.zhaoyanyang.dfss.pojo.Task;
 import com.zhaoyanyang.dfss.pojo.TaskInfo;
 import com.zhaoyanyang.dfss.pojo.TaskTarget;
-
+/**
+ * 前端适配器,将一些内部数据结构转换为适合
+ * 前端显示的数据结构
+ * @author yangzy
+ *
+ */
 @Service
 public class FrontAdapter {
 

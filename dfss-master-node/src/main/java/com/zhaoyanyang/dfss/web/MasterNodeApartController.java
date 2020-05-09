@@ -31,7 +31,13 @@ import com.zhaoyanyang.dfss.service.StartSyncService;
 import com.zhaoyanyang.dfss.service.TaskDeliverService;
 import com.zhaoyanyang.dfss.service.TaskQueueService;
 import com.zhaoyanyang.dfss.service.TaskStateQueryService;
-
+/**
+ * 这个控制器提供的任务状态改变已经放弃使用
+ * 因为一个任务对应的轮次都是异步的
+ * 没有办法做到同步状态，现在改用提供把消息发到任务队列的方法
+ * @author yangzy
+ *
+ */
 @CrossOrigin
 @RestController
 public class MasterNodeApartController {

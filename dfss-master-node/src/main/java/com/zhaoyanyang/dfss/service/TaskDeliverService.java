@@ -13,7 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhaoyanyang.dfss.pojo.DfssFile;
 import com.zhaoyanyang.dfss.pojo.Task;
-
+/**
+ * 将任务运输到从节点上去
+ * @author yangzy
+ *
+ */
 @Service
 public class TaskDeliverService {
 	

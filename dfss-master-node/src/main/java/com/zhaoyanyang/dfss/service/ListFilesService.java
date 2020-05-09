@@ -13,7 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhaoyanyang.dfss.pojo.DfssFile;
 
-
+/**
+ * 获取各个节点上的文件系统信息
+ * @author yangzy
+ *
+ */
 @Service
 public class ListFilesService {
 

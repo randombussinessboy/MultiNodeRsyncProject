@@ -5,7 +5,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
   
 import cn.hutool.core.util.NetUtil;
-  
+/**
+ * 这个是服务注册和发现的微服务,主节点通过这个来发现现在有多少个子节点  
+ * @author yangzy
+ *
+ */
 @SpringBootApplication
 @EnableEurekaServer
 public class EurekaServerApplication {

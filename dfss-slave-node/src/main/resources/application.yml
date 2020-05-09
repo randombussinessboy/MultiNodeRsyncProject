@@ -4,9 +4,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 spring:
   application:
-    name: dfss-slave-1
+    name: dfss-slave-3
 server:
-  port:  8011
+  port:  8013
 
 rabbitmq:
   hostName:  localhost

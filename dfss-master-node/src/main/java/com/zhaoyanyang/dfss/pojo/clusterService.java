@@ -1,5 +1,10 @@
 package com.zhaoyanyang.dfss.pojo;
 
+/**
+ * 各个微服务的类,包括服务名 和服务对应的URL
+ * @author yangzy
+ *
+ */
 public class clusterService {
 	
 	public String serviceName;

@@ -1,5 +1,9 @@
 package com.zhaoyanyang.dfss.pojo;
-
+/**
+ * 任务目的
+ * @author yangzy
+ *
+ */
 public class Destination {
 
 	
