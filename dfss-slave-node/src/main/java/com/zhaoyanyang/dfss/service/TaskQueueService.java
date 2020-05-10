@@ -102,7 +102,12 @@ public class TaskQueueService {
 		throw new Exception("没有找到对应的任务,请检查任务Id是否正确");
 	}
 	
-	
+	/**
+	 * 根据文件监控号找出对应的任务
+	 * @param watchId
+	 * @return
+	 * @throws Exception
+	 */
 	
 	public Task findTaskByWatchId(String watchId) throws Exception {
 

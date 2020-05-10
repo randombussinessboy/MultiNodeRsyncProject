@@ -53,6 +53,10 @@ public class SyncService {
 	 */
 	@Async
 	public void destinationHostAnalysis(Task task) throws Exception {
+		
+		taskSynInformationService.notifyTasKStateToMaster(task.getTaskId(), Task.wait_sync);
+		
+		
 		// 因为windows和Linux下文件路径分隔符不是统一的。
 		String directoryName = task.getTargetDirectoryName();
 		String fileName = task.getTargetFileName();
@@ -100,6 +104,7 @@ public class SyncService {
 		String info = serverConfig.getUrl() + "-" + task.getTaskId() + "将信息指纹发送到" + ownHost;
 
 		taskSynInformationService.sendSyncProcessInfomation(task.getTaskId(), info);
+		taskSynInformationService.notifyTasKStateToMaster(task.getTaskId(), Task.complete_clitent_to_server);
 
 	}
 
@@ -116,6 +121,11 @@ public class SyncService {
 	@Async
 	public void reBuildFile(String dstFileName, String taskId, InputStream is)
 			throws IOException, NoSuchAlgorithmException {
+		
+		
+		taskSynInformationService.notifyTasKStateToMaster(taskId, Task.cliten_complete_receive_deleta);
+		
+		
 		Security.addProvider(new RsyncProvider());
 		Configuration c = new Configuration();
 		Rdiff rdf = new Rdiff(c);
@@ -144,6 +154,7 @@ public class SyncService {
 		String info = serverConfig.getUrl() + "-" + taskId + "-"+dstFileName+"信息同步完成";
 
 		taskSynInformationService.sendSyncProcessInfomation(taskId, info);
+		taskSynInformationService.notifyTasKStateToMaster(taskId, Task.cliten_complete_rebuild);
 
 	}
 

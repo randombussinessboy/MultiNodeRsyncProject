@@ -1,5 +1,6 @@
 package com.zhaoyanyang.dfss.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.concurrent.TimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -19,60 +23,125 @@ import com.zhaoyanyang.dfss.pojo.Task;
 @Service
 /**
  * 查询设置任务状态
+ * 
  * @author yangzy
  *
  */
 public class TaskStateQueryService {
-	
-	@Autowired TaskQueueService taskQueueService;
+
+	@Autowired
+	TaskQueueService taskQueueService;
 	@Value("${rabbitmq.hostName}")
+	@Autowired
+	RestTemplate restTemplate;
 	String rabbitmqhost;
+
 	/**
 	 * 本地根据任务id 设置任务的状态
+	 * 
 	 * @param taskId
 	 * @param state
 	 */
-	public void setTaskState(String taskId,int state) {
-		
+	public void setTaskState(String taskId, int state) {
+
 		try {
-			Task task=taskQueueService.findTask(taskId);
+			Task task = taskQueueService.findTask(taskId);
 			task.setProegress(state);
-			
+			/*
+			 * 先获取这个同步任务对应的文件夹或则文件的大小
+			 */
+			Long taskSize = task.getTaskSize();
+			if (taskSize == 0) {
+				// 还未获取大小 现在获取
+				// 单文件任务的大小
+				// 目录任务的大小
+
+				if (task.getTargetType() == Task.FILE_TASK) {
+
+					String ownHost = task.getOwnHost();
+
+					String url = String.format("%s/getFileLength", ownHost);
+					System.out.println(url);
+
+					MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+					param.add("filePath", task.getDirectoryName() + File.separator + task.getFileName());
+
+					Long size = restTemplate.postForObject(url, param, Long.class);
+
+					task.setTaskSize(size);
+
+				} else {
+
+					String ownHost = task.getOwnHost();
+
+					String url = String.format("%s/getDirectorySize", ownHost);
+					System.out.println(url);
+
+					MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+					param.add("directory", task.getDirectoryName());
+
+					Long size = restTemplate.postForObject(url, param, Long.class);
+
+					task.setTaskSize(size);
+
+				}
+
+			}
+
+			long lastTime = task.getLastTimeStamp();
+
+			long totalMilliSeconds = System.currentTimeMillis();
+			long currentTime = totalMilliSeconds / 1000;// 单位为秒
+
+			long interval = currentTime - lastTime;
+			task.setLastTimeStamp(currentTime);
+
+			// 单位M/S
+			int speed = (int) (taskSize / interval * 1000);
+
+			List<Integer> speedArray = task.getSpeedProgress();
+
+			if (speedArray == null) {
+				speedArray = new ArrayList<>();
+				task.setSpeedProgress(speedArray);
+			}
+			if (speedArray.size() == 6) {
+				speedArray.clear();
+			}
+			speedArray.add(speed);
+
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
-		
+
 	}
+
 	/**
 	 * 本地根据任务Id获取任务状态
+	 * 
 	 * @param taskId
 	 * @return
 	 */
 	public int getTaskState(String taskId) {
-		
-		
+
 		try {
-			Task task=taskQueueService.findTask(taskId);
+			Task task = taskQueueService.findTask(taskId);
 			return task.getProegress();
-			
+
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return -1;
 		}
-		
+
 	}
-	
-	
-	
-	public List<String> getMsgFromQueue(String taskId) throws IOException, TimeoutException{
-		
-		
-		String queueName=taskId+"syncProcessInfomation";
-		ArrayList<String> result=new ArrayList<>();
-		
+
+	public List<String> getMsgFromQueue(String taskId) throws IOException, TimeoutException {
+
+		String queueName = taskId + "syncProcessInfomation";
+		ArrayList<String> result = new ArrayList<>();
+
 		System.out.println(Thread.currentThread().getName());
 		// 创建连接工厂
 		ConnectionFactory factory = new ConnectionFactory();
@@ -101,12 +170,9 @@ public class TaskStateQueryService {
 			i++;
 
 		}
-		
+
 		return result;
-		
-		
+
 	}
-	
-	
-	
+
 }

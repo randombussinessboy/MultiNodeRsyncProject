@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
 import org.joda.time.Minutes;
@@ -23,8 +24,11 @@ import com.zhaoyanyang.dfss.pojo.Destination;
 import com.zhaoyanyang.dfss.pojo.Task;
 import com.zhaoyanyang.dfss.pojo.TaskInfo;
 import com.zhaoyanyang.dfss.pojo.TaskTarget;
+import com.zhaoyanyang.dfss.service.TaskProgressQueryService;
 import com.zhaoyanyang.dfss.service.TaskQueueService;
 import com.zhaoyanyang.dfss.service.TaskStateQueryService;
+
+import cn.hutool.core.util.RandomUtil;
 
 /**
  * 任务详情那一栏
@@ -41,6 +45,8 @@ public class MasterNodeTaskDetailsController {
 	RestTemplate restTemplate;
 	@Autowired
 	TaskStateQueryService taskStateQueryService;
+	@Autowired
+	TaskProgressQueryService taskProgressQueryService;
 
 	/**
 	 * 暂停任务
@@ -228,6 +234,24 @@ public class MasterNodeTaskDetailsController {
 		}
 		
 		map.put("result", "success");
+		return map;
+	}
+	
+	/**
+	 * 在这个里不应该抛出错误 应该catch处理 或则设置一个全局的exception处理器 给视图一些提示信息
+	 * @param taskId
+	 * @return
+	 * @throws Exception
+	 */
+	
+	@RequestMapping("/getTaskProgress")
+	public Map<String,Object> getTaskProgress(@RequestParam("taskId") String taskId) throws Exception{
+		Map<String, Object> map=new HashMap<>();
+		System.out.println(taskId+"正在访问进度");
+		
+		
+		List<Integer> res=taskProgressQueryService.getTaskProgress(taskId);
+		map.put("datas",res);
 		return map;
 	}
 

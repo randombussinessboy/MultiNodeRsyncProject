@@ -109,6 +109,10 @@ public class StartSyncService {
 		 * 这里根据文件修改信息开始进行同步任务，没有修改的话是不需要同步的
 		 */
 		if (num > 0) {
+			
+			long totalMilliSeconds = System.currentTimeMillis();
+		    long currentTime = totalMilliSeconds / 1000;//单位为秒
+		    task.setLastTimeStamp(currentTime);
 
 			List<Destination> destinations = task.getDestinations();
 			Iterator<Destination> iterator = destinations.iterator();
@@ -275,6 +279,10 @@ public class StartSyncService {
 		System.out.println(xiaoxi);
 
 		if (!xiaoxi.isEmpty()) {
+			
+			long totalMilliSeconds = System.currentTimeMillis();
+		    long currentTime = totalMilliSeconds / 1000;//单位为秒
+		    task.setLastTimeStamp(currentTime);
 
 			List<Destination> destinations = task.getDestinations();
 			Iterator<Destination> iterator = destinations.iterator();

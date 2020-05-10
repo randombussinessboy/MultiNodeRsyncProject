@@ -2,6 +2,7 @@ package com.zhaoyanyang.dfss.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,6 +39,16 @@ public class Task implements Serializable {
 	private int  proegress;
 	
 	
+	private List<Integer> speedProgress;
+	
+	
+	private Long taskSize;
+	
+	private long lastTimeStamp;
+	
+	
+	
+	
 	
 	
 	/**
@@ -55,11 +66,18 @@ public class Task implements Serializable {
 	public void setProegress(int proegress) {
 		this.proegress = proegress;
 	}
-
+	
+	//第一个方法对应的两个状态
 	public static final int wait_sync=7;
-	public static final int complete_send_to_client=8;
 	public static final int complete_clitent_to_server=9;
+	
+	
+	//第二方法对应的两个状态
+	public static final int complete_receive_md5=8;
 	public static final int complete_server_to_client=10;
+	
+	//第三个方法对应的状态
+	public static final int cliten_complete_receive_deleta=18;
 	public static final int cliten_complete_rebuild=11;
 	
 	
@@ -347,6 +365,29 @@ public class Task implements Serializable {
 	 */
 	public void setWatchId(String watchId) {
 		this.watchId = watchId;
+	}
+	
+	/**
+	 * 保留的一个进度速度表
+	 * @return
+	 */
+	public List<Integer> getSpeedProgress() {
+		return speedProgress;
+	}
+	public void setSpeedProgress(List<Integer> speedProgress) {
+		this.speedProgress = speedProgress;
+	}
+	public Long getTaskSize() {
+		return taskSize;
+	}
+	public void setTaskSize(Long taskSize) {
+		this.taskSize = taskSize;
+	}
+	public long getLastTimeStamp() {
+		return lastTimeStamp;
+	}
+	public void setLastTimeStamp(long lastTimeStamp) {
+		this.lastTimeStamp = lastTimeStamp;
 	}
 	
 	

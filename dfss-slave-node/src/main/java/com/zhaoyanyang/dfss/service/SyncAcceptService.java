@@ -65,6 +65,8 @@ public class SyncAcceptService {
 	@Async
 	public void sourceHostReturnDelta(String hostName, String sourceFileName, String dstFileName, String taskId,
 			InputStream is) throws NoSuchAlgorithmException, IOException {
+		
+		taskSynInformationService.notifyTasKStateToMaster(taskId, Task.complete_receive_md5);
 		Security.addProvider(new RsyncProvider());
 		Configuration c = new Configuration();
 		Rdiff rdf = new Rdiff(c);
@@ -73,6 +75,7 @@ public class SyncAcceptService {
 		// 4. 根据签名文件，服务器与最新文件比较得出差异（增量文件）
 		InputStream inputStream=new FileInputStream(sourceFileName);
 		List<Delta> deltas = rdf.makeDeltas(pairs2, inputStream);
+		
 		inputStream.close();
 		// 5. 服务器保存差异文件到输出流
 		String deltaName = RandomUtil.randomString(5) + "delta.txt";
@@ -106,6 +109,7 @@ public class SyncAcceptService {
 		String info = serverConfig.getUrl() + "-" + taskId + "将差异文件发送到" +hostName;
 
 		taskSynInformationService.sendSyncProcessInfomation(taskId, info);
+		taskSynInformationService.notifyTasKStateToMaster(taskId, Task.complete_server_to_client);
 
 	}
 

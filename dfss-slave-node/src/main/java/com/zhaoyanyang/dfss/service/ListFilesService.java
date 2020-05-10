@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bouncycastle.asn1.icao.LDSSecurityObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.jayway.jsonpath.internal.function.text.Length;
 import com.zhaoyanyang.dfss.config.ServerConfig;
 import com.zhaoyanyang.dfss.pojo.DfssFile;
 
@@ -19,6 +21,8 @@ import com.zhaoyanyang.dfss.pojo.DfssFile;
 public class ListFilesService {
 	
 	@Autowired ServerConfig serverConfig;
+	
+	private static long directorySize;
 	
 	
 	/**
@@ -137,4 +141,44 @@ public class ListFilesService {
 			}
 	 }
 	 
+	 /**
+	  * 获取单个文件的长度
+	  * @param filePath
+	  * @return
+	  */
+	 public long getFileLength(String filePath) {
+		 
+		 File file=new File(filePath);
+		 return file.length();
+		 
+	 }
+	 
+	 /**
+	  * 获取整个目录的大小
+	  * @param directory
+	  * @return
+	 * @throws IOException 
+	  */
+     public long getDirectorySize(String directory) throws IOException {
+    	 directorySize=0;
+    	 File file = new File(directory);
+    	 func1(file);
+    	 return directorySize;
+     }
+     
+     private  void func1(File file) throws IOException{
+			File[] fs = file.listFiles();
+			for(File f:fs){
+				if(f.isDirectory())	//若是目录，则递归打印该目录下的文件
+					func1(f);
+				if(f.isFile()) {
+					directorySize+=f.length();
+					
+				}
+					
+				
+				
+			}
+	 }
+      
 }

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
@@ -104,6 +105,33 @@ public class SlaveNodeController {
 		List<DfssFile> ls = listFilesService.getDirectoryContent(directory);
 		return ls;
 	}
+	
+	
+	/**
+	 * 获取单个文件的大小
+	 * @param filePath 文件路径
+	 * @return
+	 */
+	@RequestMapping("/getFileLength")
+	public Long getFileLength(@RequestParam("filePath") String filePath) {
+		System.out.println(filePath);
+		long length=listFilesService.getFileLength(filePath);
+		
+		return length;
+	}
+	/**
+	 * 获取指定文件夹的大小
+	 * @param directory
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/getDirectorySize")
+	public Long getDirectorySize(@RequestParam("directory") String directory) throws IOException {
+        long length=listFilesService.getDirectorySize(directory);
+		return length;
+	}
+	
+	
 
 	/**
 	 * 给从节点增添任务
@@ -135,6 +163,14 @@ public class SlaveNodeController {
 		taskQueueService.removeTask(task);
 		return "success";
 	}
+	
+	
+	
+	
+	
+
+	
+	
 
 	/**
 	 * 开始同步任务,参数就是对应的任务,不要再添加到任务队列里面了 将该任务要求的文件计算出各个块的弱检验,和强校验,发送到目的主机上面。

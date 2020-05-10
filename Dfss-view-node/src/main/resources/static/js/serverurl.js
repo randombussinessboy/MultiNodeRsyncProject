@@ -48,3 +48,4 @@
  const URL_TASK_START=SERVER_URL+"/startTask"
  const URL_TASK_HIS=SERVER_URL+"/getAllHistoryTasks"
  const URL_TASK_HIS_DETAIL=SERVER_URL+"/getHistoryTaskDetails"
+ const URL_TASK_PROGRESS=SERVER_URL+"/getTaskProgress"
