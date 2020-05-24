@@ -39,7 +39,17 @@ function tableInit() {
         },{
             field: 'pass',
             title: '密码',
-        }]
+        }
+        ,{
+            field: 'name',
+            title: '操作',
+            formatter: function (data, row, index) {
+                var temp = ""
+                temp += "<button type=\"button\" class=\"btn btn-warning btn-xs\" onclick=\"dele('" + data + "')\">删除</button>&nbsp;";
+                return temp;
+            }
+        }
+        ]
     });
 }
 
@@ -87,4 +97,26 @@ function btnClick(type) {
            }
         }
         });
+}
+
+function dele(name) {
+$.ajax({
+        url: '/delete',
+        type: 'post',
+        dataType:"json",
+        data:{
+            name:name
+        },
+        success: function (data) {
+        	
+        	  if(data && data.code==0){
+                  alert(data.msg)
+              }else if(data && data.code ==1){
+                  $('#modal').modal('hide');
+                  $("#tableOne").bootstrapTable('destroy');
+                  tableInit();
+              }
+        	
+        }
+    });
 }

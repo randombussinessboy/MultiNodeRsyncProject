@@ -35,7 +35,7 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 */
 	public void fileRenamed(int wd, String rootPath, String oldName, String newName) {
 
-		print("renamed " + rootPath + ":" + oldName + "->" + newName);
+		print("renamed " + oldName + " -> " + newName);
 	}
 
 	/**

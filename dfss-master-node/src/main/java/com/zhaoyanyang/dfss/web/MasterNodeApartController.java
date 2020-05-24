@@ -67,7 +67,8 @@ public class MasterNodeApartController {
 	 */
 	@RequestMapping("/setTaskState")
 	public Object setTaskState(@RequestParam("taskId") String taskId, @RequestParam("state") int state) {
-
+		
+		System.out.println(state+taskId);
 		taskStateQueryService.setTaskState(taskId, state);
 
 		return "ok";

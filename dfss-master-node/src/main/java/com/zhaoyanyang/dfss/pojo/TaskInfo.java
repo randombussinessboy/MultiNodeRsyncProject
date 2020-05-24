@@ -48,17 +48,21 @@ public class TaskInfo {
 	        return isDirectonry;
 	    }
 
-	    public void setDirectonry(boolean directonry) {
-	        isDirectonry = directonry;
-	    }
+	  
 
-	    public boolean isTimmingTask() {
+	    public void setDirectonry(boolean isDirectonry) {
+			this.isDirectonry = isDirectonry;
+		}
+
+		public void setTimmingTask(boolean isTimmingTask) {
+			this.isTimmingTask = isTimmingTask;
+		}
+
+		public boolean isTimmingTask() {
 	        return isTimmingTask;
 	    }
 
-	    public void setTimmingTask(boolean timmingTask) {
-	        isTimmingTask = timmingTask;
-	    }
+	 
 
 	    public Integer getMinutes() {
 	        return minutes;

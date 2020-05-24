@@ -249,8 +249,8 @@ function addTask() {
         var data = {
             fileUrl:fileUrl,
             sourceUrl:gUrl,
-            isDirectonry:isDirectonry,
-            isTimmingTask:isTimmingTask,
+            directonry:isDirectonry,
+            timmingTask:isTimmingTask,
             minutes:minutes
         }
         if(tarArr.length==0){

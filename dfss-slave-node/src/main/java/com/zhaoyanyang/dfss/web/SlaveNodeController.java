@@ -79,6 +79,19 @@ public class SlaveNodeController {
 	}
 	
 	
+	@RequestMapping("/renamedFile")
+	public Object renamedFile(@RequestParam("root") String root,@RequestParam("oldPath") String oldPath,@RequestParam("newPath") String newPath) {
+		System.out.println(root);
+		System.out.println(oldPath);
+		System.out.println(newPath);
+		listFilesService.renamedFile(root,oldPath,newPath);
+		
+		return "ok";
+	}
+	
+	
+	
+	
 	/**
 	 * 为了完成目录同步的功能,提供了这个接口
 	 * 会把目录下 包括子目录下面的 ，所有的文件返回来

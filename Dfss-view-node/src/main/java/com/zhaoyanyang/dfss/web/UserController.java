@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -105,6 +106,47 @@ public class UserController {
 			result.put("code", "1");
 			result.put("msg", "2");
 		}
+		return result;
+	}
+	
+	
+	@RequestMapping("delete")
+	@ResponseBody
+	public Map<String, Object> delete(String name) throws IOException {
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", "0");
+		result.put("msg", "账号不存在");
+		if (StringUtils.isEmpty(name) ) {
+			result.put("msg", "参数错误");
+			return result;
+		}
+		ClassPathResource resource = new ClassPathResource("static/pages/user.json");
+		// 有些系统提示找不到资源，可以把上面的代码换成下面这句：
+		// ClassPathResource resource = new ClassPathResource("picture/bottom.png");
+		File sourceFile = resource.getFile();
+		
+		List<User> list = JSONObject.parseArray(fileUtil.readString(sourceFile), User.class);
+		boolean flag = false;
+		
+		User target = null;
+		
+		for (User user1 : list) {
+			if (user1.getName().equals(name)) {
+				target=user1;
+				flag = true;
+				break;
+			}
+		}
+		if (flag) {
+			
+			
+			list.remove(target);
+			fileUtil.writeString(sourceFile, JSON.toJSONString(list));
+			result.put("code", "1");
+			result.put("msg", "删除成功");
+		}
+		
 		return result;
 	}
 

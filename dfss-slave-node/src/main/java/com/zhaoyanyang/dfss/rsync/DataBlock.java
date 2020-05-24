@@ -1,9 +1,9 @@
 package com.zhaoyanyang.dfss.rsync;
 
 /**
- * This is the {@link Delta} in the rsync algorithm that introduces new data. It
- * is an array of bytes and an offset, such that the updated file should contain
- * this block at the given offset.
+ * 这是 {@link Delta} 在同步目的文件中不存在的数据.
+ * 这里使用一个比特数组存储他们，而且必须给出他们在同步源文件
+ * 中的偏移量
  * 
  */
 public class DataBlock implements Delta, java.io.Serializable {
@@ -14,14 +14,14 @@ public class DataBlock implements Delta, java.io.Serializable {
 	private static final long serialVersionUID = -3132452687703522201L;
 
 	/**
-	 * The block of data to insert.
+	 * 所代表的数据.
 	 * 
 	 * @since 1.1
 	 */
 	protected final byte[] data;
 
 	/**
-	 * The offset in the file to start this block.
+	 * 这份数据在新的文件中的偏移量.
 	 * 
 	 * @since 1.1
 	 */
@@ -31,8 +31,8 @@ public class DataBlock implements Delta, java.io.Serializable {
 	// -----------------------------------------------------------------
 
 	/**
-	 * Create a new instance of a DataBlock with a given offset and block of
-	 * bytes.
+	 * 把不同的比特数组传进来 还有偏移量 新建这个数据块
+	 * 
 	 * 
 	 * @param offset
 	 *            The offset where this data should go.

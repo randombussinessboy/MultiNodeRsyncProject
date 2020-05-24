@@ -107,11 +107,12 @@ public class StartSyncService {
 
 		/**
 		 * 这里根据文件修改信息开始进行同步任务，没有修改的话是不需要同步的
+		 * 单文件删除 改名都没有考虑 之后需要考虑 改名没有什么影响 但是删除可能会造成出错
 		 */
 		if (num > 0) {
 			
 			long totalMilliSeconds = System.currentTimeMillis();
-		    long currentTime = totalMilliSeconds / 1000;//单位为秒
+		    long currentTime = totalMilliSeconds;//单位为秒
 		    task.setLastTimeStamp(currentTime);
 
 			List<Destination> destinations = task.getDestinations();
@@ -262,6 +263,48 @@ public class StartSyncService {
 				continue;
 
 			}
+			
+			if (message.contains("renamed")) {
+
+				// 目录响应改名事件
+
+				List<Destination> destinations = task.getDestinations();
+				Iterator<Destination> iterator = destinations.iterator();
+				while (iterator.hasNext()) {
+					Destination destination = iterator.next();
+					String url = String.format("%s//renamedFile", destination.getUrl());
+					System.out.println(url);
+//				被改名的文件
+//					String filepath=message.split(" ")[1];
+//					filepath=destination.getDirectoryName()+File.separator+filepath.replace(task.getDirectoryName()+File.separator, "");
+//					int type=Integer.valueOf(message.split(" ")[2]);
+					
+					String oldfilePath=message.split(" ")[1];
+					String newfilePath=message.split(" ")[3];
+					
+					
+					MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+					param.add("root",destination.getDirectoryName());
+					param.add("oldPath",oldfilePath);
+					param.add("newPath", newfilePath);
+					String string = restTemplate.postForObject(url, param, String.class);
+					System.out.println(string);
+					
+					
+
+					String info = "目录同步任务" + taskId + "已经在主机:" + destination.getUrl()+oldfilePath+"改名文件";
+
+					taskSynInformationService.sendSyncProcessInfomation(taskId, info);
+
+				}
+				i++;
+				continue;
+
+			}
+			
+			
+			
+			
 			
 			
 			

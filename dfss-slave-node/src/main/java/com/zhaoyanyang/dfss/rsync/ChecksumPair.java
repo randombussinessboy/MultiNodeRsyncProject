@@ -3,59 +3,60 @@ package com.zhaoyanyang.dfss.rsync;
 import java.util.Arrays;
 
 
+
 /**
- * A pair of weak and strong checksums for use with the Rsync algorithm. The
- * weak "rolling" checksum is typically a 32-bit sum derived from the Adler32
- * algorithm; the strong checksum is usually a 128-bit MD4 checksum.
- * 
+ * Rsync算法中每一个数据块对应的强校验和和弱校验和，弱检验和是用Adler32算法计算出来的
+ * 强校验和用MD4算法计算出来的
+ * @author yangzy
+ *
  */
 public class ChecksumPair implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// Constants and variables.
+	// 变量.
 	// -------------------------------------------------------------------------
 
 	/**
-	 * The weak, rolling checksum.
+	 * 弱检验和
 	 * 
 	 * @since 1.1
 	 */
 	int weak;
 
 	/**
-	 * The strong checksum.
+	 * 强校验和
 	 * 
 	 * @since 1.1
 	 */
 	StrongKey strong;
 
 	/**
-	 * The offset in the original data where this pair was generated.
+	 * 这个数据块在原始数据中的偏移量
 	 */
 	long offset;
 
-	/** The number of bytes these sums are over. */
+	/** 这个数据块的长度. */
 	int length;
 
-	/** The sequence number of these sums. */
+	/** 这个数据块的序号，是第几个数据库. */
 	int seq;
 
-	// Constructors.
+	// 构造器部分.
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Create a new checksum pair.
+	 * 新建一对新的校验和.
 	 * 
 	 * @param weak
-	 *            The weak, rolling checksum.
+	 *            弱校验和
 	 * @param strong
-	 *            The strong checksum.
+	 *            强校验和
 	 * @param offset
-	 *            The offset at which this checksum was computed.
+	 *           计算校验和的这个数据块的偏移量
 	 * @param length
-	 *            The length of the data over which this sum was computed.
+	 *           计算校验和的这个数据块的长度
 	 * @param seq
-	 *            The sequence number of this checksum pair.
+	 *           计算这对校验和的数据快的序号
 	 */
 	public ChecksumPair(int weak, byte[] strong, long offset, int length,
 			int seq) {
@@ -67,44 +68,44 @@ public class ChecksumPair implements java.io.Serializable {
 	}
 
 	/**
-	 * Create a new checksum pair with no length or sequence fields.
+	 *新建一对校验和,不填充序号和长度字段，因为我们默认就可以了
 	 * 
 	 * @param weak
-	 *            The weak checksum.
+	 *           弱校验和.
 	 * @param strong
-	 *            The strong checksum.
+	 *            强校验和.
 	 * @param offset
-	 *            The offset at which this checksum was computed.
+	 *           数据库偏移量.
 	 */
 	public ChecksumPair(int weak, byte[] strong, long offset) {
 		this(weak, strong, offset, 0, 0);
 	}
 
 	/**
-	 * Create a new checksum pair with no associated offset.
+	 * 新建一对校验和，没有偏移字段
 	 * 
 	 * @param weak
-	 *            The weak checksum.
+	 *           弱校验和.
 	 * @param strong
-	 *            The strong checksum.
+	 *           强校验和.
 	 */
 	public ChecksumPair(int weak, byte[] strong) {
 		this(weak, strong, -1L, 0, 0);
 	}
 
 	/**
-	 * Default 0-arguments constructor for package access.
+	 * 默认的无参数构成方法
 	 */
 	ChecksumPair() {
 	}
 
-	// Instance methods.
+	// 实例方法.
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Get the weak checksum.
+	 * 获取弱校验码.
 	 * 
-	 * @return The weak checksum.
+	 * @return 弱校验码.
 	 * @since 1.1
 	 */
 	public int getWeak() {
@@ -112,9 +113,9 @@ public class ChecksumPair implements java.io.Serializable {
 	}
 
 	/**
-	 * Get the strong checksum.
+	 * 获取强校验码.
 	 * 
-	 * @return The strong checksum.
+	 * @return 强校验码.
 	 * @since 1.1
 	 */
 	public StrongKey getStrong() {
@@ -122,33 +123,33 @@ public class ChecksumPair implements java.io.Serializable {
 	}
 
 	/**
-	 * Return the offset from where this checksum pair was generated.
+	 * 返回数据块偏移量
 	 * 
-	 * @return The offset.
+	 * @return 偏移量.
 	 */
 	public long getOffset() {
 		return offset;
 	}
 
 	/**
-	 * Return the length of the data for which this checksum pair was generated.
+	 * 返回被计算的数据库长度
 	 * 
-	 * @return The length.
+	 * @return 长度.
 	 */
 	public int getLength() {
 		return length;
 	}
 
 	/**
-	 * Return the sequence number of this checksum pair, if any.
+	 * 返回数据块的序号 第一块 第二块
 	 * 
-	 * @return The sequence number.
+	 * @return 返回的序号.
 	 */
 	public int getSequence() {
 		return seq;
 	}
 
-	// Public instance methods overriding java.lang.Object.
+	// 重写object类的方法
 	// -------------------------------------------------------------------------
 
 	public int hashCode() {
@@ -156,12 +157,13 @@ public class ChecksumPair implements java.io.Serializable {
 	}
 
 	/**
-	 * We define equality for this object as equality between two weak sums and
-	 * equality between two strong sums.
+	 * 我们重写了对象比较的方法，如果两个校验值都相等
+	 * 我们认为这两个数据块是相同的 注意这个checksum抽象了一个数据块的内容
+	 * 
 	 * 
 	 * @param obj
-	 *            The Object to test.
-	 * @return True if both checksum pairs are equal.
+	 *            被比较的对象
+	 * @return 如果相等返回正确
 	 */
 	public boolean equals(Object obj) {
 		if (!(obj instanceof StrongKey))
@@ -177,9 +179,9 @@ public class ChecksumPair implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns a String representation of this pair.
+	 * 重写toString方法 输出对象的时候会调用这个
 	 * 
-	 * @return The String representation of this pair.
+	 * @return 代表这一对校验码的字符串
 	 * @since 1.2
 	 */
 	public String toString() {
@@ -187,28 +189,33 @@ public class ChecksumPair implements java.io.Serializable {
 				+ " strong=" + Util.toHexString(strong.getBytes());
 	}
 	
+	/**
+	 * 强校验码的静态内部类
+	 * @author yangzy
+	 *
+	 */
 	public static class StrongKey implements java.io.Serializable, Comparable<StrongKey> {
 		private static final long serialVersionUID = 1L;
-		// Constants and variables.
+		// 变量域.
 		// --------------------------------------------------------------
 
 		/**
-		 * The key itself. An array of some number of bytes.
+		 * 这个校验和最本身的值. 一个比特数组
 		 * 
 		 * @since 1.0
 		 */
 		protected byte[] key;
 
-		// Constructors.
+		// 构造器.
 		// --------------------------------------------------------------
 
 		/**
-		 * Create a new key with the specified bytes. <code>key</code> can be
+		 * 使用计算完的校验值填充这个对象. <code>key</code> 可以为
 		 * <code>null</code>.
 		 * 
 		 * @since 1.0
 		 * @param key
-		 *            The bytes that will make up this key.
+		 *            这个比特数组就是强校验和
 		 */
 		StrongKey(byte[] key) {
 			if (key != null)
@@ -217,14 +224,14 @@ public class ChecksumPair implements java.io.Serializable {
 				this.key = key;
 		}
 
-		// Instance methods.
+		// 实例方法.
 		// --------------------------------------------------------------
 
 		/**
-		 * Return the bytes that compose this Key.
+		 * 返回强校验码具体的值.
 		 * 
 		 * @since 1.0
-		 * @return {@link #key}, the bytes that compose this key.
+		 * @return {@link #key}, 校验码比特数组.
 		 */
 		public byte[] getBytes() {
 			if (key != null)
@@ -233,11 +240,11 @@ public class ChecksumPair implements java.io.Serializable {
 		}
 
 		/**
-		 * Set the byte array that composes this key.
+		 * 设置这个key的比特数组.
 		 * 
 		 * @since 1.0
 		 * @param key
-		 *            The bytes that will compose this key.
+		 *            这个key对象真正的比特数组.
 		 */
 		public void setBytes(byte[] key) {
 			if (key != null)
@@ -247,10 +254,10 @@ public class ChecksumPair implements java.io.Serializable {
 		}
 
 		/**
-		 * The length, in bytes, of this key.
+		 * 这个比特数组的长度
 		 * 
 		 * @since 1.0
-		 * @return The length of this key in bytes.
+		 * @return 这个强校验码的比特长度.
 		 */
 		public int length() {
 			if (key != null)
@@ -258,12 +265,12 @@ public class ChecksumPair implements java.io.Serializable {
 			return 0;
 		}
 
-		// Public instance methods overriding java.lang.Object -----------
+		// 重写object类的方法 -----------
 
 		/**
-		 * Return a zero-padded hexadecimal string representing this key.
+		 *返回强校验码的一个十六进制的表示
 		 * 
-		 * @return A hexadecimal string of the bytes in {@link #key}.
+		 * @return 十六进制表示{@link #key}.
 		 * @since 1.0
 		 */
 		public String toString() {
@@ -273,10 +280,10 @@ public class ChecksumPair implements java.io.Serializable {
 		}
 
 		/**
-		 * The hash code for this key. This is defined as the XOR of all 32-bit
+		 * 这个比特数组的每32位做异或的结果
 		 * blocks of the {@link #key} array.
 		 * 
-		 * @return The hash code for this key.
+		 * @return 这个强校验码的hash值.
 		 * @since 1.0
 		 */
 		public int hashCode() {
@@ -289,44 +296,42 @@ public class ChecksumPair implements java.io.Serializable {
 		}
 
 		/**
-		 * Test if this key equals another. Two keys are equal if the method
-		 * {@link java.util.Arrays#equals(byte[],byte[])} returns true for thier key
-		 * arrays.
+		 * 两个强校验值是否相等 ，直接比较比特数组是不是相同
+		 * {@link java.util.Arrays#equals(byte[],byte[])} 
+		 * 值相同返回true
 		 * 
 		 * @since 1.0
 		 * @throws java.lang.ClassCastException
 		 *             If o is not a StrongKey.
 		 * @param o
-		 *            The object to compare to.
-		 * @return <tt>true</tt> If this key is equivalent to the argument.
+		 *            被比较的强校验对象
+		 * @return <tt>true</tt> 这两个强校验码相同.
 		 */
 		public boolean equals(Object o) {
 			return Arrays.equals(key, ((StrongKey) o).key);
 		}
 
-		// java.lang.Comparable interface implementation -----------------
+		// java.lang.Comparable 接口方法的实现 -----------------
 
 		/**
-		 * Compare this object to another. This method returns an integer value less
-		 * than, equal to, or greater than zero if this key is less than, equal to,
-		 * or greater than the given key. This method will return
+		 * 这个方法是实现来比较两个对象大小的
 		 * <ul>
-		 * <li>0 if the {@link #key} fields are references to the same array.
-		 * <li>1 if {@link #key} in this class is null.
-		 * <li>-1 if {@link #key} in <tt>o</tt> is null (null is always less than
-		 * everything).
-		 * <li>0 if the lengths of the {@link #key} arrays are the same and their
-		 * contents are equivalent.
-		 * <li>The difference between the lengths of the keys if different.
-		 * <li>The difference between the first two different members of the arrays.
+		 * <li>0 如果 {@link #key}两个引用了相同的对象.
+		 * <li>1 如果 {@link #key} 一个类为空
+		 * <li>-1 如果 {@link #key} 在 <tt>o</tt> 是空的 (空总是小于如何对象
+		 * ).
+		 * <li>0 如果 {@link #key} 长度相同内容也相同
+		 * 
+		 * <li>连长度都不同的key肯定是不同的.
+		 * <li>长度相同 校验值不同的也是不同的
 		 * </ul>
 		 * 
 		 * @since 1.0
 		 * @throws java.lang.ClassCastException
 		 *             If o is not a StrongKey.
 		 * @param o
-		 *            The key to compare to.
-		 * @return An integer derived from the differences of the two keys.
+		 *            被比较的对象.
+		 * @return 这两个key的比较结果.
 		 */
 		public int compareTo(StrongKey sk) {
 			if (key == sk.key)

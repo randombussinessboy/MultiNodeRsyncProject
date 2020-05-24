@@ -257,8 +257,10 @@ public class FrontAdapter {
 		for (TaskInfo taskInfo : list) {
 
 			if (taskInfo.isDirectonry()) {
-
+				System.out.println("是目录");
 				if (taskInfo.isTimmingTask()) {
+					
+					System.out.println("是定时任务");
 
 					ArrayList<Destination> destinations = new ArrayList<>();
 					for (TaskTarget taskTarget : taskInfo.getTargetList()) {
@@ -287,6 +289,8 @@ public class FrontAdapter {
 			} else {//是文件同步的话,不止要不原URL分离出来 还需要把目的的分离出来
 				
 				if (taskInfo.isTimmingTask()) {
+					
+					System.out.println("是文件同步里的定时任务");
 					
 					ArrayList<Destination> destinations = new ArrayList<>();
 					for (TaskTarget taskTarget : taskInfo.getTargetList()) {
@@ -321,6 +325,7 @@ public class FrontAdapter {
 					
 					
 				}else {
+					System.out.println("是文件同步里的实时任务");
 					
 					ArrayList<Destination> destinations = new ArrayList<>();
 					for (TaskTarget taskTarget : taskInfo.getTargetList()) {

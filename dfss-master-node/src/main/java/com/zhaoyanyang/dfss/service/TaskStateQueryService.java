@@ -31,9 +31,9 @@ public class TaskStateQueryService {
 
 	@Autowired
 	TaskQueueService taskQueueService;
-	@Value("${rabbitmq.hostName}")
 	@Autowired
 	RestTemplate restTemplate;
+	@Value("${rabbitmq.hostName}")
 	String rabbitmqhost;
 
 	/**
@@ -50,7 +50,7 @@ public class TaskStateQueryService {
 			/*
 			 * 先获取这个同步任务对应的文件夹或则文件的大小
 			 */
-			Long taskSize = task.getTaskSize();
+			long taskSize = task.getTaskSize();
 			if (taskSize == 0) {
 				// 还未获取大小 现在获取
 				// 单文件任务的大小
@@ -66,7 +66,7 @@ public class TaskStateQueryService {
 					MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
 					param.add("filePath", task.getDirectoryName() + File.separator + task.getFileName());
 
-					Long size = restTemplate.postForObject(url, param, Long.class);
+					long size = restTemplate.postForObject(url, param, Long.class);
 
 					task.setTaskSize(size);
 
@@ -80,7 +80,7 @@ public class TaskStateQueryService {
 					MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
 					param.add("directory", task.getDirectoryName());
 
-					Long size = restTemplate.postForObject(url, param, Long.class);
+					long size = restTemplate.postForObject(url, param, Long.class);
 
 					task.setTaskSize(size);
 
@@ -91,21 +91,22 @@ public class TaskStateQueryService {
 			long lastTime = task.getLastTimeStamp();
 
 			long totalMilliSeconds = System.currentTimeMillis();
-			long currentTime = totalMilliSeconds / 1000;// 单位为秒
+			long currentTime = totalMilliSeconds;// 单位为毫秒
 
 			long interval = currentTime - lastTime;
 			task.setLastTimeStamp(currentTime);
 
-			// 单位M/S
-			int speed = (int) (taskSize / interval * 1000);
-
+			// 单位KB/毫秒  约等于 M/S
+			int speed = (int) (taskSize / interval );
+            //这种算法算出来速度过快了,限制一下
+	        speed=speed%500;
 			List<Integer> speedArray = task.getSpeedProgress();
 
 			if (speedArray == null) {
 				speedArray = new ArrayList<>();
 				task.setSpeedProgress(speedArray);
 			}
-			if (speedArray.size() == 6) {
+			if (speedArray.size() == 11) {
 				speedArray.clear();
 			}
 			speedArray.add(speed);

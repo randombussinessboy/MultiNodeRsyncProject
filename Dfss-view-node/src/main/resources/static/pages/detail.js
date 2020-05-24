@@ -483,6 +483,39 @@ function getData(myChart,id) {
 				},
 				series : [ {
 					data : datas,
+					
+			        itemStyle : { 
+			           color:{
+			                type: 'linear',
+			                x: 0,
+			                y: 0,
+			                x2: 0,
+			                y2: 1,
+			                colorStops: [{
+			                    offset: 0, color: '#06B025' // 0% 处的颜色
+			                }, {
+			                    offset: 1, color: '#06B025' // 100% 处的颜色
+			                }],
+			                global: false // 缺省为 false
+			           }
+			        },
+			        lineStyle:{
+			            color: {
+			                type: 'linear',
+			                x: 0,
+			                y: 0,
+			                x2: 1,
+			                y2: 1,
+			                colorStops: [{
+			                    offset: 0, color: '#06B025' // 0% 处的颜色
+			                },{
+			                    offset: 0.5, color: '#06B025' // 0% 处的颜色
+			                }, {
+			                    offset: 1, color: '#06B025' // 100% 处的颜色
+			                }],
+			                global: false // 缺省为 false
+			            }
+			        },
 					type : 'line',
 					areaStyle : {}
 				} ]

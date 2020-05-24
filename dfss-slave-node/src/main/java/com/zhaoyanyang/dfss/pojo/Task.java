@@ -42,7 +42,7 @@ public class Task implements Serializable {
 	private List<Integer> speedProgress;
 	
 	
-	private Long taskSize;
+	private long taskSize;
 	
 	private long lastTimeStamp;
 	
@@ -377,10 +377,10 @@ public class Task implements Serializable {
 	public void setSpeedProgress(List<Integer> speedProgress) {
 		this.speedProgress = speedProgress;
 	}
-	public Long getTaskSize() {
+	public long getTaskSize() {
 		return taskSize;
 	}
-	public void setTaskSize(Long taskSize) {
+	public void setTaskSize(long taskSize) {
 		this.taskSize = taskSize;
 	}
 	public long getLastTimeStamp() {

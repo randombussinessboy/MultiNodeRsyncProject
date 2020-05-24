@@ -180,5 +180,11 @@ public class ListFilesService {
 				
 			}
 	 }
+	public void renamedFile(String root,String oldPath, String newPath) {
+		// TODO 自动生成的方法存根
+		
+		new File(root+File.separator+oldPath).renameTo(new File(root+File.separator+newPath));
+		
+	}
       
 }

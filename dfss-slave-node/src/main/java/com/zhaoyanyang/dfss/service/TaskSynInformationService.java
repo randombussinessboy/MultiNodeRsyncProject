@@ -78,6 +78,7 @@ public class TaskSynInformationService {
 		String url = String.format("%s//setTaskState", masterIpAdd);
 		System.out.println(url);
 		MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+		System.out.println(State+taskId);
 		param.add("state", State);
 		param.add("taskId", taskId);
 		restTemplate.postForObject(url, param, String.class);

@@ -1,11 +1,9 @@
 package com.zhaoyanyang.dfss.rsync;
 
 /**
- * This class represents an update to a file or array of bytes wherein the bytes
- * themselves have not changed, but have moved to another location. This is
- * represented by three fields: the offset in the original data, the offset in
- * the new data, and the length, in bytes, of this block.
- * 
+ * 这就是那些已经存在在老文件中的数据块. 
+ * 记录了在老文件中的偏移量和在新文件中的偏移量
+ * 以及块长度
  */
 public class Offsets implements Delta, java.io.Serializable {
 
