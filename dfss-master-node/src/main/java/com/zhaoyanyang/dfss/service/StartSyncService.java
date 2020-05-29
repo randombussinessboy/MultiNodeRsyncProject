@@ -233,7 +233,7 @@ public class StartSyncService {
 			
 			if (message.contains("created")) {
 
-				// 目录响应删除事件
+				// 目录响应新建事件
 
 				List<Destination> destinations = task.getDestinations();
 				Iterator<Destination> iterator = destinations.iterator();
@@ -241,7 +241,7 @@ public class StartSyncService {
 					Destination destination = iterator.next();
 					String url = String.format("%s//createFile", destination.getUrl());
 					System.out.println(url);
-					//被删除的文件
+					//新建的文件
 					String filepath=message.split(" ")[1];
 					filepath=destination.getDirectoryName()+File.separator+filepath.replace(task.getDirectoryName()+File.separator, "");
 					int type=Integer.valueOf(message.split(" ")[2]);
@@ -303,15 +303,10 @@ public class StartSyncService {
 			}
 			
 			
-			
-			
-			
-			
-			
 
-			System.out.println(message.split(":")[2]);
+			System.out.println(message.split(":")[message.split(":").length-1]);
 
-			resMap.put(message.split(":")[2], "");
+			resMap.put(message.split(":")[message.split(":").length-1], "");
 
 			System.out.println(message);
 			i++;

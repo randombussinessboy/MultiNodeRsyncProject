@@ -2,11 +2,20 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    ip-address: ${spring.cloud.client.ip-address}
 spring:
   application:
-    name: dfss-slave-2
+    name: dfss-slave-4
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB
+      max-request-size: 500MB
 server:
-  port:  8012
+  port:  8014
 
 rabbitmq:
   hostName:  localhost

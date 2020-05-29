@@ -2,6 +2,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    ip-address: ${spring.cloud.client.ip-address}
 spring:
   application:
     name: dfss-master-node
@@ -11,6 +15,5 @@ spring:
     content-type: text/html
     cache: false
 
-      
 rabbitmq:
   hostName:  localhost

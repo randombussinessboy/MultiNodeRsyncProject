@@ -17,12 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.xmlunit.builder.Input;
-
 import com.zhaoyanyang.dfss.config.ServerConfig;
 import com.zhaoyanyang.dfss.pojo.Task;
 import com.zhaoyanyang.dfss.rsync.ChecksumPair;

@@ -28,15 +28,15 @@ public class DfssSlaveApplication {
 	
 		int eurekaServerPort = 8761;
 
-		if (NetUtil.isUsableLocalPort(eurekaServerPort)) {
-			System.err.printf("检查到端口%d 未启用，判断 eureka 服务器没有启动，本服务无法使用，故退出%n", eurekaServerPort);
-			System.exit(1);
-		}
-		
-		 if(NetUtil.isUsableLocalPort(15672)) {
-			 System.err.printf("RabbitMQ 服务器未启动 ");
-	            System.exit(1);
-		 }
+//		if (NetUtil.isUsableLocalPort(eurekaServerPort)) {
+//			System.err.printf("检查到端口%d 未启用，判断 eureka 服务器没有启动，本服务无法使用，故退出%n", eurekaServerPort);
+//			System.exit(1);
+//		}
+//		
+//		 if(NetUtil.isUsableLocalPort(15672)) {
+//			 System.err.printf("RabbitMQ 服务器未启动 ");
+//	            System.exit(1);
+//		 }
 
 	            
 		new SpringApplicationBuilder(DfssSlaveApplication.class).

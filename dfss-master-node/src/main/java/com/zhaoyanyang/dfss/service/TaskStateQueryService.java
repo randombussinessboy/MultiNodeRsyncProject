@@ -95,7 +95,11 @@ public class TaskStateQueryService {
 
 			long interval = currentTime - lastTime;
 			task.setLastTimeStamp(currentTime);
-
+			
+			if (interval==0) {
+				interval=1;
+			}
+			
 			// 单位KB/毫秒  约等于 M/S
 			int speed = (int) (taskSize / interval );
             //这种算法算出来速度过快了,限制一下

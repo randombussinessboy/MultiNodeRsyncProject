@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeoutException;
 
-import org.joda.time.Minutes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -27,8 +25,6 @@ import com.zhaoyanyang.dfss.pojo.TaskTarget;
 import com.zhaoyanyang.dfss.service.TaskProgressQueryService;
 import com.zhaoyanyang.dfss.service.TaskQueueService;
 import com.zhaoyanyang.dfss.service.TaskStateQueryService;
-
-import cn.hutool.core.util.RandomUtil;
 
 /**
  * 任务详情那一栏

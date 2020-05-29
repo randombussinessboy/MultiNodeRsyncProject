@@ -34,7 +34,12 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 *            被改名后文件名
 	 */
 	public void fileRenamed(int wd, String rootPath, String oldName, String newName) {
-
+		if (ignoreSwapfile(oldName)) {
+			return;
+		}
+		if (ignoreSwapfile(newName)) {
+			return;
+		}
 		print("renamed " + oldName + " -> " + newName);
 	}
 
@@ -49,6 +54,10 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 *            被修改文件名
 	 */
 	public void fileModified(int wd, String rootPath, String name) {
+		
+		if (ignoreSwapfile(name)) {
+			return;
+		}
 		
 		File file=new File(rootPath+File.separator+name);
 		if (file.isDirectory()) {
@@ -83,6 +92,11 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 *            被删除文件名
 	 */
 	public void fileDeleted(int wd, String rootPath, String name) {
+		
+		
+		if (ignoreSwapfile(name)) {
+			return;
+		}
 
 		print("deleted " + rootPath + File.separator + name);
 	}
@@ -99,13 +113,20 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 	 */
 	public void fileCreated(int wd, String rootPath, String name) {
 		
-
+		
+		if (ignoreSwapfile(name)) {
+			return;
+		}
+		
 		File file=new File(rootPath+File.separator+name);
 		if (file.isDirectory()) {
 			print("created " + rootPath + File.separator + name+" 1");
 			return;
 		}
 		print("created " + rootPath + File.separator + name+" 0");
+		
+		//在新建文件下面添加一个修改的操作 使得数据一开始就能被传输过去 不然新建操作只是在目的从节点新建了一个文件 里面没有数据
+		print("modified " + rootPath + ":" + name);
 		
 	}
 
@@ -155,4 +176,21 @@ public class FileChangesListenner extends Thread implements JNotifyListener{
 		}
 		
 	}
+	
+	/**
+	 * 如果包含了交换文件的标志 就跳过 不发到消息队列中去
+	 * 包含返回true
+	 * @param name
+	 * @return
+	 */
+    boolean ignoreSwapfile(String name) {
+    	
+    	if (name.contains("~")||name.contains(".swp")||name.contains(".swx")) {
+			return true;
+		}
+    	
+    	return false;
+    	
+    }
+	
 }

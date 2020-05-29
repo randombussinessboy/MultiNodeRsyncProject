@@ -115,6 +115,9 @@ public class SlaveNodeController {
 	 */
 	@RequestMapping("/listFile")
 	public Object listFile(@RequestParam("directory") String directory) throws Exception {
+		
+		System.out.print(directory);
+	
 		List<DfssFile> ls = listFilesService.getDirectoryContent(directory);
 		return ls;
 	}

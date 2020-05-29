@@ -3,17 +3,11 @@ package com.zhaoyanyang.dfss.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.bouncycastle.asn1.icao.LDSSecurityObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.jayway.jsonpath.internal.function.text.Length;
 import com.zhaoyanyang.dfss.config.ServerConfig;
 import com.zhaoyanyang.dfss.pojo.DfssFile;
 

@@ -15,7 +15,7 @@ import cn.hutool.core.util.StrUtil;
 public class DfssViewApplication {
 
 	public static void main(String[] args) {
-        int port = 8090;
+        int port = 80;
         int eurekaServerPort = 8761;
  
         if(NetUtil.isUsableLocalPort(eurekaServerPort)) {

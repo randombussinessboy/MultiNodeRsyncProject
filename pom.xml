@@ -48,4 +48,15 @@
   	<module>dfss-slave-node</module>
   	<module>Dfss-view-node</module>
   </modules>
+  
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
+  
 </project>
